@@ -230,8 +230,8 @@ pub fn check_ws(endpoint: &str) -> String {
         (false, endpoint_port + 3)
     } else if endpoint_port == relay_port || endpoint_port == rendezvous_port + 1 {
         // relay
-        // https://github.com/cloudydesk/cloudydesk/blob/6ffbcd1375771f2482ec4810680623a269be70f1/src/rendezvous_mediator.rs#L615
-        // https://github.com/cloudydesk/cloudydesk-server/blob/235a3c326ceb665e941edb50ab79faa1208f7507/src/relay_server.rs#L83, based on relay port.
+        // https://github.com/rustdesk/rustdesk/blob/6ffbcd1375771f2482ec4810680623a269be70f1/src/rendezvous_mediator.rs#L615
+        // https://github.com/rustdesk/rustdesk-server/blob/235a3c326ceb665e941edb50ab79faa1208f7507/src/relay_server.rs#L83, based on relay port.
         (true, endpoint_port + 2)
     } else {
         // fallback relay
@@ -275,14 +275,14 @@ mod tests {
         assert_eq!(check_ws("127.0.0.1:21115"), "ws://127.0.0.1:21118");
         assert_eq!(check_ws("127.0.0.1:21116"), "ws://127.0.0.1:21118");
         assert_eq!(check_ws("127.0.0.1:21117"), "ws://127.0.0.1:21119");
-        assert_eq!(check_ws("cloudydesk.com:21115"), "ws://cloudydesk.com/ws/id");
-        assert_eq!(check_ws("cloudydesk.com:21116"), "ws://cloudydesk.com/ws/id");
-        assert_eq!(check_ws("cloudydesk.com:21117"), "ws://cloudydesk.com/ws/relay");
+        assert_eq!(check_ws("rustdesk.com:21115"), "ws://rustdesk.com/ws/id");
+        assert_eq!(check_ws("rustdesk.com:21116"), "ws://rustdesk.com/ws/id");
+        assert_eq!(check_ws("rustdesk.com:21117"), "ws://rustdesk.com/ws/relay");
         // set relay-server without port
         Config::set_option("relay-server".to_string(), "127.0.0.1".to_string());
         Config::set_option(
             "api-server".to_string(),
-            "https://api.cloudydesk.com".to_string(),
+            "https://api.rustdesk.com".to_string(),
         );
         assert_eq!(
             check_ws("[0:0:0:0:0:0:0:1]:21115"),
@@ -296,11 +296,11 @@ mod tests {
             check_ws("[0:0:0:0:0:0:0:1]:21117"),
             "ws://[0:0:0:0:0:0:0:1]:21119"
         );
-        assert_eq!(check_ws("cloudydesk.com:21115"), "wss://cloudydesk.com/ws/id");
-        assert_eq!(check_ws("cloudydesk.com:21116"), "wss://cloudydesk.com/ws/id");
+        assert_eq!(check_ws("rustdesk.com:21115"), "wss://rustdesk.com/ws/id");
+        assert_eq!(check_ws("rustdesk.com:21116"), "wss://rustdesk.com/ws/id");
         assert_eq!(
-            check_ws("cloudydesk.com:21117"),
-            "wss://cloudydesk.com/ws/relay"
+            check_ws("rustdesk.com:21117"),
+            "wss://rustdesk.com/ws/relay"
         );
         // set relay-server with default port
         Config::set_option("relay-server".to_string(), "127.0.0.1:21117".to_string());
@@ -309,11 +309,11 @@ mod tests {
         assert_eq!(check_ws("127.0.0.1:21117"), "ws://127.0.0.1:21119");
         // set relay-server with custom port
         Config::set_option("relay-server".to_string(), "127.0.0.1:34567".to_string());
-        assert_eq!(check_ws("cloudydesk.com:21115"), "wss://cloudydesk.com/ws/id");
-        assert_eq!(check_ws("cloudydesk.com:21116"), "wss://cloudydesk.com/ws/id");
+        assert_eq!(check_ws("rustdesk.com:21115"), "wss://rustdesk.com/ws/id");
+        assert_eq!(check_ws("rustdesk.com:21116"), "wss://rustdesk.com/ws/id");
         assert_eq!(
-            check_ws("cloudydesk.com:34567"),
-            "wss://cloudydesk.com/ws/relay"
+            check_ws("rustdesk.com:34567"),
+            "wss://rustdesk.com/ws/relay"
         );
 
         // set custom-rendezvous-server without port
