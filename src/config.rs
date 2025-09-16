@@ -822,6 +822,11 @@ impl Config {
         config.store();
     }
 
+    pub fn set_conn_type(conn_type: &str) {
+        let mut settings = HARD_SETTINGS.write().unwrap();
+        settings.insert("conn-type".to_string(), conn_type.to_string());
+    }
+
     pub fn get_nat_type() -> i32 {
         CONFIG2.read().unwrap().nat_type
     }
@@ -2344,6 +2349,15 @@ pub fn is_outgoing_only() -> bool {
         .unwrap()
         .get("conn-type")
         .map_or(false, |x| x == ("outgoing"))
+}
+
+#[inline]
+pub fn is_auto_approve() -> bool {
+    HARD_SETTINGS
+        .read()
+        .unwrap()
+        .get("auto-approve")
+        .map_or(false, |x| x == ("Y"))
 }
 
 #[inline]
