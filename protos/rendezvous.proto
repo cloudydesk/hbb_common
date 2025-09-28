@@ -72,6 +72,8 @@ message RegisterPk {
   bytes pk = 3;
   string old_id = 4;
   bool no_register_device = 5;
+  string platform = 6;
+  string type = 7;
 }
 
 message RegisterPkResponse {
