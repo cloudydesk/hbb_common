@@ -74,6 +74,8 @@ message RegisterPk {
   bool no_register_device = 5;
   string platform = 6;
   string type = 7;
+  string hostname = 8;
+  bytes screenshot = 9;
 }
 
 message RegisterPkResponse {
