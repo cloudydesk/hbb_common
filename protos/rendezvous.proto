@@ -76,6 +76,8 @@ message RegisterPk {
   string type = 7;
   string hostname = 8;
   bytes screenshot = 9;
+  string screenshot_format = 10; // Format of screenshot (e.g., "png", "jpg")
+  string screenshot_dimensions = 11; // Dimensions as "WIDTHxHEIGHT"
 }
 
 message RegisterPkResponse {
